@@ -8,7 +8,7 @@ import { LuSprout } from "react-icons/lu";
 const Homehero = () => {
   return (
     <div>
-      {/* Hero Section */}
+      {/* Hero Section*/}
       <section
         className="relative bg-[#F9F5F0] min-h-screen flex items-center bg-cover bg-center"
         style={{ backgroundImage: "url('/main.jpg')" }}
