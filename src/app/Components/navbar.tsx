@@ -1,73 +1,95 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { FiShoppingCart, FiMenu, FiX } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
-import { FiSearch, FiShoppingCart } from "react-icons/fi";
+import { client } from "@/sanity/lib/client";
+
+const fetchProducts = async () => {
+  const query = `
+    *[_type == 'product']{
+      _id,
+      name,  
+      slug {
+        current
+      }
+    }
+  `;
+  return await client.fetch(query);
+};
 
 const Navbar = () => {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [cartItems] = useState<number>(0);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [products, setProducts] = useState<any[]>([]);
+  const [cart] = useState<any[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [user, setUser] = useState<any>(null); // Dummy user data
 
-  // Sample shopping items for the dropdown
-  const shoppingItems = [
-    "Plant Pots",
-    "Ceramics",
-    "Tables",
-    "Chairs",
-    "Crockery",
-    "Cutlery",
-  ];
+  // Fetch products from Sanity
+  useEffect(() => {
+    const getProducts = async () => {
+      const data = await fetchProducts();
+      setProducts(data);
+    };
+    getProducts();
+  }, []);
+
+  // Total cart items quantity
+  const totalCartQuantity = cart.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+
+  // Filter products based on search term
+  useEffect(() => {
+    if (searchTerm) {
+      const filtered = products.filter((product) =>
+        product.name?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    } else {
+      setFilteredProducts([]);
+    }
+  }, [searchTerm, products]);
+
+  // Function to clear search input
+  const clearSearch = () => {
+    setSearchTerm(""); // Reset search term
+    setFilteredProducts([]); // Hide search results dropdown
+  };
 
   return (
-    <nav className="bg-white border-b border-gray-200">
-      <div className="w-full px-4 sm:px-6 lg:px-8">
-        {/* Top Row: Logo, Links, and Icons */}
+    <nav className="bg-white shadow-md">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <h1 className="text-2xl font-semibold text-gray-800">
+          <h1 className="text-2xl font-bold text-gray-800">
             <Link href="/">Avion</Link>
           </h1>
 
-          {/* Toggle Button for Mobile Menu */}
+          {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-gray-500 hover:text-gray-700 absolute left-1/2 transform -translate-x-1/2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)} // Toggle menu state
+            className="md:hidden text-gray-500 hover:text-gray-700 text-2xl"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              {isMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
+            {isMobileMenuOpen ? <FiX /> : <FiMenu />}
           </button>
 
-          {/* Navigation Links for Larger Screens */}
-          <div className="hidden md:flex space-x-10 text-gray-600 mr-6 ml-auto">
+          {/* Navigation Links */}
+          <div
+            className={`${
+              isMobileMenuOpen ? "block" : "hidden"
+            } md:flex space-x-6 text-gray-600`}
+          >
             <Link href="/" className="hover:text-gray-900 transition">
               Home
             </Link>
             <Link href="/about" className="hover:text-gray-900 transition">
               About Us
             </Link>
-            <Link href="/items" className="hover:text-gray-900 transition">
+            <Link href="/all-products" className="hover:text-gray-900 transition">
               New Items
             </Link>
             <Link href="/blog" className="hover:text-gray-900 transition">
@@ -75,110 +97,107 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <div className="flex items-center space-x-6 ml-6">
-            {/* Search Icon with Dropdown */}
+          {/* Icons Section */}
+          <div className="flex items-center space-x-6">
+            {/* Search Section */}
             <div className="relative">
-              <button
-                className="text-gray-500 hover:text-gray-700 text-xl"
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
-              >
-                <FiSearch />
-              </button>
-              {isSearchOpen && (
-                <div className="absolute top-10 right-0 bg-white shadow-lg rounded-lg w-48 z-40">
-                  <ul className="text-gray-700">
-                    {shoppingItems.map((item, index) => (
-                      <li
-                        key={index}
-                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+              <input
+                type="text"
+                placeholder="Search products..."
+                className="border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:border-blue-500"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              {searchTerm && (
+                <div className="absolute top-10 left-0 bg-white shadow-md p-4 w-full max-h-60 overflow-auto z-10">
+                  {filteredProducts.length > 0 ? (
+                    <ul className="space-y-2">
+                      {filteredProducts.map((product) => (
+                        <li key={product._id}>
+                            <Link href={`/all-products/${product.slug.current}`}
+                            
+                            className="text-blue-600 hover:underline"
+                            onClick={clearSearch}
+                          >
+                            {product.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-gray-500">No products found.</p>
+                  )}
                 </div>
               )}
             </div>
 
-            {/* Shopping Cart Icon with Link and Item Count */}
+            {/* Profile Icon */}
+            <div className="relative">
+              <button
+                onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                className="text-gray-500 hover:text-gray-700 text-2xl"
+              >
+                <CgProfile />
+              </button>
+              {isProfileMenuOpen && (
+                <div className="absolute right-0 mt-2 bg-white border shadow-md rounded-lg w-48 z-20">
+                  {user ? (
+                    <>
+                      <p className="px-4 py-2 border-b text-gray-700">
+                        Hello, {user.name}
+                      </p>
+                      <Link
+                        href="/profile"
+                        className="block px-4 py-2 hover:bg-gray-100"
+                      >
+                        My Profile
+                      </Link>
+                      <button
+                        onClick={() => setUser(null)}
+                        className="block px-4 py-2 text-left hover:bg-gray-100 w-full"
+                      >
+                        Logout
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        href="/login"
+                        className="block px-4 py-2 hover:bg-gray-100"
+                      >
+                        Login
+                      </Link>
+                      <Link
+                        href="/signup"
+                        className="block px-4 py-2 hover:bg-gray-100"
+                      >
+                        Sign Up
+                      </Link>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+ 
+            <Link href="/profile">
+              <button className="text-gray-500 hover:text-gray-700 text-2xl">
+                <CgProfile />
+              </button>
+            </Link>
+
+            {/* Cart Icon */}
             <Link href="/cart">
               <button className="relative text-gray-500 hover:text-gray-700 text-xl">
                 <FiShoppingCart />
-                {cartItems > 0 && (
-                  <span className="absolute top-0 right-0 inline-block bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 items-center justify-center">
-                    {cartItems}
+                {totalCartQuantity > 0 && (
+                  <span className="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                    {totalCartQuantity}
                   </span>
                 )}
               </button>
             </Link>
-
-            {/* Profile Icon */}
-            <button className="text-gray-500 hover:text-gray-700 text-xl">
-              <CgProfile />
-            </button>
           </div>
         </div>
-
-        {/* Line Between Top and Bottom Row */}
-        <div className="border-t border-gray-200 w-full"></div>
-
-        {/* Bottom Row: Categories for Larger Screens */}
-        <div className="hidden md:flex justify-center space-x-12 text-lg text-gray-600 my-2">
-          {[
-            "Plant pots",
-            "Ceramics",
-            "Tables",
-            "Chairs",
-            "Crockery",
-            "Tableware",
-            "Cutlery",
-          ].map((category, index) => (
-            <Link
-              key={index}
-              href={`/${category.toLowerCase().replace(" ", "-")}`}
-              className="hover:text-gray-900 transition"
-            >
-              {category}
-            </Link>
-          ))}
-        </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden flex flex-col space-y-2 py-4 text-sm text-gray-600 z-30 bg-white shadow-lg">
-            {/* Navigation Links */}
-            <div className="flex flex-col space-y-2 px-6">
-              <Link
-                href="/"
-                className="hover:text-gray-900 transition px-6 py-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Home
-              </Link>
-              <Link
-                href="/about"
-                className="hover:text-gray-900 transition px-6 py-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                About Us
-              </Link>
-              <Link
-                href="/items"
-                className="hover:text-gray-900 transition px-6 py-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                New Items
-              </Link>
-              <Link
-                href="/blog"
-                className="hover:text-gray-900 transition px-6 py-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Blog
-              </Link>
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   );

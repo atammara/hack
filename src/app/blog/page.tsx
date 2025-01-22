@@ -76,12 +76,12 @@ const Blog: React.FC = () => {
         {blogs.map((blog) => (
           <div
             key={blog.id}
-            className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition"
+            className="bg-white shadow-md rounded-lg overflow-hidde hover:shadow-lg transition"
           >
             <img
               src={blog.Image}
               alt={blog.title}
-              className="w-full h-48 sm:h-64 lg:h-72 object-cover"
+              className="w-full h-48 sm:h-64 lg:h-96 object-cover"
             />
             <div className="p-4">
               <p className="text-gray-500 text-sm">{blog.date}</p>
