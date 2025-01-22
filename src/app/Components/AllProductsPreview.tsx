@@ -81,7 +81,7 @@ export default function ProductsPreview() {
       <div className="mt-10 text-center">
         <Link href="/all-products">
           {/* View All Products Button with styling */}
-          <button className="bg-[#F9F9F9] py-4 px-6 rounded-[5px] text-[#2A254B] hover:bg-[#2a254b] hover:text-white transition-colors duration-300">
+          <button className="bg-[#2a254b] py-4 px-6 rounded-[5px] text-white transition-colors duration-300">
             View All Products
           </button>
         </Link>

@@ -25,9 +25,11 @@ const Homehero = () => {
             <p className="text-lg text-gray-600 mb-8">
               Shop the new Spring-Summer 2023 collection today.
             </p>
+            <Link href="/all-products">
             <button className="bg-black text-white py-3 mt-14 px-6 rounded hover:bg-gray-800 transition">
               Shop Collection
             </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -83,13 +85,13 @@ const Homehero = () => {
 
       {/* Product Showcase */}
       <div>
-        <ProductsPreview/>
+        <ProductsPreview />
       </div>
 
       {/* About Section */}
       <section className="py-12 px-6 lg:px-28">
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-4">
-          <div className="lg:w-1/2 bg-[#2A254B] pt-8 pb-16 px-14 text-white">
+          <div className="lg:w-1/2 h-full flex flex-col justify-center bg-[#2A254B] pt-10 pb-16 px-14 text-white">
             <h2 className="text-2xl lg:text-4xl font-semibold mb-6">
               It started with a small idea
             </h2>
@@ -97,21 +99,22 @@ const Homehero = () => {
               A global brand with local beginnings, our story began in a small
               studio in South London in early 2014.
             </p>
-            <button className="bg-white text-black mt-16 py-3 px-6 rounded hover:bg-gray-100 transition">
+            <button className="bg-white text-black mt-20 py-3 px-6 rounded hover:bg-gray-100 transition">
               View More
             </button>
           </div>
-          <div className="lg:w-1/2">
+          <div className="lg:w-1/2 h-auto">
             <Image
-              width={100}
-              height={100}
+              width={500}
+              height={500}
               src="/img.png"
               alt="About us"
-              className="w-full shadow-md"
+              className="object-cover shadow-md"
             />
           </div>
         </div>
       </section>
+
 
       {/* Newsletter Section */}
       <section
@@ -127,9 +130,9 @@ const Homehero = () => {
             ranges, sales, pop-up stores, and more.
           </p>
           <div className="flex justify-center gap-2 mb-6 mt-6 text-sm">
-            <span className="flex items-center gap-2 text-lg"><FaRegCircleCheck className="text-xl"/> Exclusive offers</span>
-            <span className="flex items-center gap-2 text-lg"><FaRegCircleCheck className="text-xl"/> Free events</span>
-            <span className="flex items-center gap-2 text-lg"><FaRegCircleCheck className="text-xl"/> Large discounts</span>
+            <span className="flex items-center gap-2 text-lg"><FaRegCircleCheck className="text-xl" /> Exclusive offers</span>
+            <span className="flex items-center gap-2 text-lg"><FaRegCircleCheck className="text-xl" /> Free events</span>
+            <span className="flex items-center gap-2 text-lg"><FaRegCircleCheck className="text-xl" /> Large discounts</span>
           </div>
           <form className="flex flex-col sm:flex-row items-center justify-center">
             <input

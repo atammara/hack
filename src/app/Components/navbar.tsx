@@ -81,7 +81,7 @@ const Navbar = () => {
           <div
             className={`${
               isMobileMenuOpen ? "block" : "hidden"
-            } md:flex space-x-6 text-gray-600`}
+            } md:flex space-x-14 text-gray-600`}
           >
             <Link href="/" className="hover:text-gray-900 transition">
               Home
@@ -130,54 +130,7 @@ const Navbar = () => {
                 </div>
               )}
             </div>
-
-            {/* Profile Icon */}
-            <div className="relative">
-              <button
-                onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                className="text-gray-500 hover:text-gray-700 text-2xl"
-              >
-                <CgProfile />
-              </button>
-              {isProfileMenuOpen && (
-                <div className="absolute right-0 mt-2 bg-white border shadow-md rounded-lg w-48 z-20">
-                  {user ? (
-                    <>
-                      <p className="px-4 py-2 border-b text-gray-700">
-                        Hello, {user.name}
-                      </p>
-                      <Link
-                        href="/profile"
-                        className="block px-4 py-2 hover:bg-gray-100"
-                      >
-                        My Profile
-                      </Link>
-                      <button
-                        onClick={() => setUser(null)}
-                        className="block px-4 py-2 text-left hover:bg-gray-100 w-full"
-                      >
-                        Logout
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <Link
-                        href="/login"
-                        className="block px-4 py-2 hover:bg-gray-100"
-                      >
-                        Login
-                      </Link>
-                      <Link
-                        href="/signup"
-                        className="block px-4 py-2 hover:bg-gray-100"
-                      >
-                        Sign Up
-                      </Link>
-                    </>
-                  )}
-                </div>
-              )}
-            </div>
+              
  
             <Link href="/profile">
               <button className="text-gray-500 hover:text-gray-700 text-2xl">

@@ -27,41 +27,41 @@ const BrandMessage = () => {
 
             {/* About Section */}
             <section className="py-12 px-6 lg:px-28">
-                <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-4">
-                    <div className="lg:w-1/2 bg-[#2A254B] pt-8 pb-16 px-14 text-white text-center lg:text-left">
-                        <h2 className="text-2xl lg:text-4xl font-semibold mb-6">
-                            It started with a small idea
-                        </h2>
-                        <p className="text-lg mb-6">
-                            A global brand with local beginnings, our story began in a small
-                            studio in South London in early 2014.
-                        </p>
-                        <button className="bg-white text-black mt-16 py-3 px-6 rounded hover:bg-gray-100 transition">
-                            View More
-                        </button>
-                    </div>
-                    <div className="lg:w-1/2">
-                        <Image
-                            width={100}
-                            height={100}
-                            src="/img.png"
-                            alt="About us"
-                            className="w-full shadow-md"
-                        />
-                    </div>
-                </div>
-            </section>
+                   <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-4">
+                     <div className="lg:w-1/2 h-full flex flex-col justify-center bg-[#2A254B] pt-10 pb-16 px-14 text-white">
+                       <h2 className="text-2xl lg:text-4xl font-semibold mb-6">
+                         It started with a small idea
+                       </h2>
+                       <p className="text-lg mb-6">
+                         A global brand with local beginnings, our story began in a small
+                         studio in South London in early 2014.
+                       </p>
+                       <button className="bg-white text-black mt-20 py-3 px-6 rounded hover:bg-gray-100 transition">
+                         View More
+                       </button>
+                     </div>
+                     <div className="lg:w-1/2 h-auto">
+                       <Image
+                         width={500}
+                         height={500}
+                         src="/img.png"
+                         alt="About us"
+                         className="object-cover shadow-md"
+                       />
+                     </div>
+                   </div>
+                 </section>
 
             {/* Service Section */}
             <div className="flex flex-col lg:flex-row items-center bg-white py-16 px-8 lg:px-28">
                 {/* Image Section */}
                 <div className="lg:w-1/2 w-full mb-8 lg:mb-0">
                     <Image
-                        width={100}
-                        height={100}
+                        width={500}
+                        height={500}
                         src="/img1.png"
                         alt="Interior Design"
-                        className="shadow-lg w-full"
+                        className="shadow-lg"
                     />
                 </div>
 
@@ -70,13 +70,13 @@ const BrandMessage = () => {
                     <h2 className="text-2xl lg:text-4xl text-gray-800 font-semibold mb-6">
                         Our service isn’t just personal, it’s actually hyper personally exquisite
                     </h2>
-                    <p className="text-lg text-gray-600 mb-6">
+                    <p className="text-lg text-gray-600 mb-4">
                         When we started Avion, the idea was simple: Make high-quality furniture affordable and available for the mass market.
                     </p>
-                    <p className="text-lg text-gray-600 mb-8">
+                    <p className="text-lg text-gray-600 mb-4">
                         Handmade, and lovingly crafted furniture and homeware is what we live, breathe, and design so our Chelsea boutique becomes the hotbed for the London interior design community.
                     </p>
-                    <button className="bg-gray-100 text-gray-800 py-3 px-6 rounded-lg hover:bg-gray-200 transition">
+                    <button className="bg-gray-100 text-gray-800 py-1 px-6 rounded-lg hover:bg-gray-200 transition">
                         Get in touch
                     </button>
                 </div>
