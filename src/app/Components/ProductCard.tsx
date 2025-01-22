@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useCart } from '../Components/CartContext';
 
 interface Product {
@@ -16,7 +17,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
 
   return (
     <div className="border p-4 rounded shadow">
-      <img src={product.imageUrl} alt={product.name} className="w-full h-40 object-cover mb-2" />
+      <Image src={product.imageUrl} alt={product.name} className="w-full h-40 object-cover mb-2" />
       <h2 className="text-xl font-semibold">{product.name}</h2>
       <p className="text-gray-600">${product.price}</p>
       <button

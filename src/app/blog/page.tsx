@@ -8,7 +8,7 @@ const Blog: React.FC = () => {
       title: "The Art of Minimalist Design",
       description:
         "Explore how minimalist design can enhance the user experience and create a modern aesthetic.",
-      Image: "/man1.jpg",
+      image: "/man1.jpg",
       date: "Dec 5, 2024",
       author: "John Doe",
     },
@@ -17,7 +17,7 @@ const Blog: React.FC = () => {
       title: "Top Furniture Trends in 2024",
       description:
         "Discover the latest trends in furniture design that are shaping modern interiors.",
-        Image: "/woman.jpg",
+      image: "/woman.jpg",
       date: "Nov 28, 2024",
       author: "Jane Smith",
     },
@@ -26,7 +26,7 @@ const Blog: React.FC = () => {
       title: "How to Style Your Living Room",
       description:
         "Tips and tricks for styling your living room with modern furniture and decor.",
-        Image: "/woman2.jpg",
+      image: "/woman2.jpg",
       date: "Nov 20, 2024",
       author: "Emily Brown",
     },
@@ -35,7 +35,7 @@ const Blog: React.FC = () => {
       title: "Sustainable Design Practices",
       description:
         "Learn how sustainable design can make a difference in creating eco-friendly spaces.",
-        Image: "/man2.jpg",
+      image: "/man2.jpg",
       date: "Oct 15, 2024",
       author: "Michael Lee",
     },
@@ -63,8 +63,8 @@ const Blog: React.FC = () => {
         <p className="text-gray-600 text-base sm:text-lg">
           Welcome to our blog! At Modern Blog, we are passionate about bringing
           you the latest trends, tips, and insights in the world of modern
-          design and home decor. Whether you're looking for inspiration to style
-          your living room, or you want to stay up-to-date with the newest
+          design and home decor. Whether you&apos;re looking for inspiration to
+          style your living room, or you want to stay up-to-date with the newest
           furniture trends, our blog covers it all. We focus on high-quality,
           minimalist designs that blend functionality and aesthetics. Join us as
           we explore how design can transform spaces and elevate everyday living.
@@ -76,11 +76,13 @@ const Blog: React.FC = () => {
         {blogs.map((blog) => (
           <div
             key={blog.id}
-            className="bg-white shadow-md rounded-lg overflow-hidde hover:shadow-lg transition"
+            className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition"
           >
-            <img
-              src={blog.Image}
+            <Image
+              src={blog.image}
               alt={blog.title}
+              width={400}
+              height={300}
               className="w-full h-48 sm:h-64 lg:h-96 object-cover"
             />
             <div className="p-4">

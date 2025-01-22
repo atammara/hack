@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { sanityfetch } from '@/sanity/lib/fetch'; // Fetch function for Sanity
 import Image from 'next/image';
 import Link from 'next/link';
@@ -66,7 +66,7 @@ const ProductDetails: React.FC<{ product: Product }> = ({ product }) => {
       setCartState('added'); // Show success state
       setTimeout(() => setCartState('default'), 1000); // Reset after 1 seconds
     } catch (error) {
-      console.error('Failed to add to cart:', error);
+
       setCartState('default'); // Reset to default state on error
     }
   };

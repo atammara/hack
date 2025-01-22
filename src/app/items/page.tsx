@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import { FaChevronDown } from "react-icons/fa";
 
@@ -66,7 +67,7 @@ const ProductsPage = () => {
                             key={index}
                             className="bg-white shadow rounded-lg hover:shadow-lg transition overflow-hidden"
                         >
-                            <img
+                            <Image
                                 src={product.Image}
                                 alt={product.name}
                                 className="w-full h-64 object-cover"

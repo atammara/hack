@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface User {
   name: string;
@@ -12,7 +13,7 @@ const UserProfile = () => {
   const [user, setUser] = useState<User>({
     name: "John Doe",
     email: "john.doe@example.com",
-    profileImage: "https://via.placeholder.com/150", // Replace with user's profile image URL
+    profileImage: "", 
   });
 
   const [isEditing, setIsEditing] = useState(false);
@@ -33,7 +34,6 @@ const UserProfile = () => {
   };
 
   const handleLogout = () => {
-    console.log("User logged out");
     setUser({ name: "", email: "", profileImage: "" });
   };
 
@@ -70,8 +70,10 @@ const UserProfile = () => {
       <main className="flex-1 flex items-center justify-center bg-gray-100">
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
           <div className="text-center mb-6">
-            <img
-              src={user.profileImage || "https://via.placeholder.com/150"}
+            <Image
+            width={150}
+            height={150}
+              src={user.profileImage}
               alt={user.name}
               className="w-24 h-24 rounded-full mx-auto border-4 border-blue-500"
             />
